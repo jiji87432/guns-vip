@@ -126,15 +126,15 @@ public class AliyunGreen {
 					String logMessage = "the whole image scan request failed. response:"
 							+ JSON.toJSONString(scrResponse);
 					log.error(logMessage);
-					throw new ServiceException("上传图片过大");
+					throw new ServiceException("内容检测处理失败");
 				}
 			}
 		} catch (ClientException e) {
 			log.error(e.getMessage());
-			throw new ServiceException("上传图片过大");
+			throw new ServiceException(e.getMessage());
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			throw new ServiceException("上传图片过大");
+			throw new ServiceException(e.getMessage());
 		}
 
 	}

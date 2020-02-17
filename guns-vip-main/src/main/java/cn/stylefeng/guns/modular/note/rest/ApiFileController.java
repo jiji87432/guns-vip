@@ -17,7 +17,10 @@ import cn.stylefeng.guns.core.ResultGenerator;
 import cn.stylefeng.guns.core.UploadUtils;
 import cn.stylefeng.guns.core.exception.ServiceException;
 import cn.stylefeng.guns.core.notice.AliyunGreen;
+import cn.stylefeng.guns.core.notice.AliyunOSS;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/file")
 public class ApiFileController extends ApiBaseController {
@@ -25,22 +28,22 @@ public class ApiFileController extends ApiBaseController {
 	@Resource
 	private AliyunGreen aliyunGreen;
 	
+	@Resource
+	private AliyunOSS aliyunOSS;
+	
 	@PostMapping("/upload")
 	public Object uploadImage(HttpServletRequest request, @RequestParam(required = true, name = "file") MultipartFile file) {
-		try {
-			String relativePath = saveImage(file, configEntity.getImagesPath());
-			String imageUrl = getImageUrl(request, relativePath);
-			aliyunGreen.checkImage(imageUrl);
-			return ResultGenerator.genSuccessResult(relativePath);
-		} catch (IOException e) {
-			throw new ServiceException(e.getMessage());
-		}
+		String imageUrl = aliyunOSS.upload(file);
+		aliyunGreen.checkImage(imageUrl);
+		log.info("/api/file/upload");
+		return ResultGenerator.genSuccessResult(imageUrl);
 	}
 	
 	
 	@PostMapping("/checkText")
 	public Object checkText(String text) {
 		aliyunGreen.checkText(text);
+		log.info("/api/file/checkText");
 		return ResultGenerator.genSuccessResult();
 	}
 	
