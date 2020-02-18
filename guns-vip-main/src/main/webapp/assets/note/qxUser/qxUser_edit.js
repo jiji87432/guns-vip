@@ -38,7 +38,7 @@ layui.use(['form', 'admin', 'ax', 'upload'], function () {
     var ajax = new $ax(Feng.ctxPath + "/qxUser/detail?id=" + Feng.getUrlParam("id"));
     var result = ajax.start();
     form.val('qxUserForm', result.data);
-    $("#img1").attr('src', Feng.ctxPath + "/resource/" + result.data.avatar);
+    $("#img1").attr('src', result.data.avatar);
 
     // 普通图片上传
     upload.render({
