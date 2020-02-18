@@ -21,7 +21,7 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             {field: 'id', hide: true, title: '标识'},
             {field: 'name', sort: true, title: '名称'},
             {field: 'image', sort: true, title: '图片', templet: function(d) {
-            	return '<img src="' + Feng.ctxPath + "/resource/" + d.image  + '" class="tdImg">';
+            	return '<img src="' + d.image  + '" class="tdImg">';
             }},
             {field: 'price', sort: true, title: '金币'},
             {field: 'createdTime', sort: true, title: '创建时间'},

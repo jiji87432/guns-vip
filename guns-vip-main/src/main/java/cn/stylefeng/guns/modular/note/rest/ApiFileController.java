@@ -59,12 +59,9 @@ public class ApiFileController extends ApiBaseController {
 	
 	@PostMapping("/uploadPackage")
 	public Object uploadPackage(HttpServletRequest request, @RequestParam(required = true, name = "file") MultipartFile file) {
-		try {
-			String relativePath = saveImage(file, configEntity.getPackageImagePath());
-			return ResultGenerator.genSuccessResult(relativePath);
-		} catch (IOException e) {
-			throw new ServiceException(e.getMessage());
-		}
+		String packageUrl = aliyunOSS.upload(file, configEntity.getAliyunGiftFolder());
+		log.info("/api/file/uploadPackage");
+		return ResultGenerator.genSuccessResult(packageUrl);
 	}
 	
 	public String saveImage(MultipartFile file, String folderName) throws IllegalStateException, IOException  {
