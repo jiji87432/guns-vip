@@ -64,6 +64,11 @@ public class QxNoteParam implements Serializable, BaseValidatingParam {
      * 图片 图片地址1;图片地址2;图片地址3
      */
     private String images;
+    
+    /**
+     * 录音
+     */
+    private String voice;
 
     /**
      * 推文标题

@@ -75,6 +75,12 @@ public class QxNote implements Serializable {
     private String images;
 
     /**
+     * 录音地址
+     */
+    @TableField("voice")
+    private String voice;
+    
+    /**
      * 推文标题
      */
     @TableField("title")
@@ -201,7 +207,15 @@ public class QxNote implements Serializable {
         this.images = images;
     }
 
-    public String getTitle() {
+    public String getVoice() {
+		return voice;
+	}
+
+	public void setVoice(String voice) {
+		this.voice = voice;
+	}
+
+	public String getTitle() {
         return title;
     }
 

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class QxNoteTo {
 	private String images;
+	private String voice;
 	private String title;
 	private String content;
 	private Boolean canComment;
