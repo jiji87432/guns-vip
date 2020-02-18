@@ -33,6 +33,8 @@ public class ConfigEntity {
 	private String aliyunSecret;
 	private String aliyunBucketName;
 	private String aliyunBucketUrl;
+	private String aliyunImagesFolder;
+	private String aliyunVoicesFolder;
 	// 融云
 	private String rongCloudAppKey;
 	private String rongCloudAppSecret;

@@ -22,7 +22,7 @@ public class AliyunOSS {
 	@Resource
 	private ConfigEntity configEntity;
 	
-	public String upload(MultipartFile file) {
+	public String upload(MultipartFile file, String folder) {
 		String endpoint = "oss-cn-hangzhou.aliyuncs.com";
 		String accessKeyId = configEntity.getAliyunAccessKeyId();
 		String accessKeySecret = configEntity.getAliyunSecret();
@@ -32,7 +32,7 @@ public class AliyunOSS {
 		// 获取文件信息
 		String fileName = file.getOriginalFilename();
 		String extension = FilenameUtils.getExtension(fileName);
-		String key = DateUtils.getCurrentTime(DateUtils.YYYY_MM_DD_HH_MM_SS_SSS_PATTERN) + UUIDGenerator.get32UUID()
+		String key = folder + "/" + DateUtils.getCurrentTime(DateUtils.YYYY_MM_DD_HH_MM_SS_SSS_PATTERN) + UUIDGenerator.get32UUID()
 		+ "." + extension;
 		try {
 			// 创建OSSClient实例

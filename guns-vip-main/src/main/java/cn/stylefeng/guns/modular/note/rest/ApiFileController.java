@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.stylefeng.guns.config.ConfigEntity;
 import cn.stylefeng.guns.core.FileUtil;
 import cn.stylefeng.guns.core.ResultGenerator;
 import cn.stylefeng.guns.core.UploadUtils;
@@ -31,14 +32,23 @@ public class ApiFileController extends ApiBaseController {
 	@Resource
 	private AliyunOSS aliyunOSS;
 	
+	@Resource
+	private ConfigEntity configEntity;
+	
 	@PostMapping("/upload")
 	public Object uploadImage(HttpServletRequest request, @RequestParam(required = true, name = "file") MultipartFile file) {
-		String imageUrl = aliyunOSS.upload(file);
+		String imageUrl = aliyunOSS.upload(file, configEntity.getAliyunImagesFolder());
 		aliyunGreen.checkImage(imageUrl);
 		log.info("/api/file/upload");
 		return ResultGenerator.genSuccessResult(imageUrl);
 	}
 	
+	@PostMapping("/uploadVoice")
+	public Object uploadVoice(HttpServletRequest request, @RequestParam(required = true, name = "file") MultipartFile file) {
+		String voiceUrl = aliyunOSS.upload(file, configEntity.getAliyunVoicesFolder());
+		log.info("/api/file/uploadVoice");
+		return ResultGenerator.genSuccessResult(voiceUrl);
+	}
 	
 	@PostMapping("/checkText")
 	public Object checkText(String text) {
