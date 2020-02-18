@@ -59,7 +59,7 @@ layui.use(['form', 'admin', 'ax', 'upload'], function () {
     if (result.data.headImages != undefined && result.data.headImages != "") {
         headImageArray = result.data.headImages.split(",");
         for (i=0; i<headImageArray.length;i++) {
-    		$('#head_images_slide_show').append('<img src="' + Feng.ctxPath + "/resource/"+ headImageArray[i] + '" title="双击删除" class="layui-upload-img" ondblclick="delHeadImage(this)">');
+    		$('#head_images_slide_show').append('<img src="' + headImageArray[i] + '" title="双击删除" class="layui-upload-img" ondblclick="delHeadImage(this)">');
         }
     }
     upload.render({
@@ -86,7 +86,7 @@ layui.use(['form', 'admin', 'ax', 'upload'], function () {
     if (result.data.detailImages != undefined && result.data.detailImages != "") {
     	detailImageArray = result.data.detailImages.split(",");
     	for (i = 0; i < detailImageArray.length; i++) {
-    		$('#detail_images_slide_show').append('<img src="' + Feng.ctxPath + "/resource/"+ detailImageArray[i] + '" title="双击删除" class="layui-upload-img" ondblclick="delDetailImage(this)">');
+    		$('#detail_images_slide_show').append('<img src="' + detailImageArray[i] + '" title="双击删除" class="layui-upload-img" ondblclick="delDetailImage(this)">');
     	}
     }
     upload.render({
