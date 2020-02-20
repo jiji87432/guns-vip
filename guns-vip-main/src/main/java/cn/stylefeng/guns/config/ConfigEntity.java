@@ -61,6 +61,8 @@ public class ConfigEntity {
 	private int inviteRange;
 	// 每天最多发送5单
 	private int maxInvite;
+	// 多少天不活跃
+	private int unactiveDays;
 	// 短信
 	private String smsDomain;
 	private String smsSignName;
@@ -68,6 +70,7 @@ public class ConfigEntity {
 	private String smsInviteSuccessTemplate;
 	private String smsInviteFailTemplate;
 	private String smsEmergencyTemplate;
+	private String smsNotifyUnactiveUsersTemplate;
 	// 邮箱
 	private String emailAccountName;
 	private String emailFromAlias;
@@ -75,6 +78,7 @@ public class ConfigEntity {
 	private String eInviteSuccessTemplate;
 	private String eInviteFailTemplate;
 	private String eEmergencyTemplate;
+	private String eNotifyUnactiveUsersTemplate;
 	
 	// 平台联系方式
 	private String platformContact;
@@ -106,6 +110,9 @@ public class ConfigEntity {
 		} else if (SMS_CODE.EMERGENCY == tag) {
 			map.put("template", isSms ? smsEmergencyTemplate : eEmergencyTemplate);
 			map.put("tagName", "紧急通知");
+		} else if (SMS_CODE.NOTIFY_UNACTIVE_USERS == tag) {
+			map.put("template", isSms ? smsNotifyUnactiveUsersTemplate : eNotifyUnactiveUsersTemplate);
+			map.put("tagName", "提醒用户");
 		} else {
 			map.put("template", isSms ? smsTemplate : eTemplate);
 			map.put("tagName", "验证码");

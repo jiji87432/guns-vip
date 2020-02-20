@@ -154,4 +154,9 @@ public interface QxUserService extends IService<QxUser> {
 	 * @param userId
 	 */
 	void unblock(Long requestUserId, Long userId);
+	
+	/**
+	 * 筛选不活跃用户，发送提醒短信
+	 */
+	void notifyUnactiveUsers();
 }

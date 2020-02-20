@@ -17,6 +17,7 @@ package cn.stylefeng.guns.modular.note.rest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,10 +56,13 @@ import cn.stylefeng.guns.core.util.NoticeHelper;
 import cn.stylefeng.guns.core.util.RongCloudHelper;
 import cn.stylefeng.guns.modular.note.dto.QxUserTo;
 import cn.stylefeng.guns.modular.note.dvo.QxUserVo;
+import cn.stylefeng.guns.modular.note.entity.QxLogon;
 import cn.stylefeng.guns.modular.note.entity.QxUser;
 import cn.stylefeng.guns.modular.note.entity.QxUserSocial;
+import cn.stylefeng.guns.modular.note.pojo.QxNotifyUserPojo;
 import cn.stylefeng.guns.modular.note.service.QxFollowService;
 import cn.stylefeng.guns.modular.note.service.QxInviteService;
+import cn.stylefeng.guns.modular.note.service.QxLogonService;
 import cn.stylefeng.guns.modular.note.service.QxUserSocialService;
 import io.rong.models.response.TokenResult;
 import lombok.AllArgsConstructor;
@@ -95,6 +99,9 @@ public class ApiUserController extends ApiBaseController {
 	
 	@Resource
 	private QxInviteService qxInviteService;
+	
+	@Resource
+	private QxLogonService qxLogonService;
 	
 	@Resource
 	private NoticeHelper noticeHelper;
@@ -376,6 +383,21 @@ public class ApiUserController extends ApiBaseController {
 	public Object unblack(Long userId) {
 		qxUserService.unblock(getRequestUserId(), userId);
 		log.info("/api/user/unblack, userId=" + userId);
+		return ResultGenerator.genSuccessResult();
+	}
+	
+	@PostMapping("/logon")
+	public Object logon() {
+		QueryWrapper<QxLogon> queryWrapper = new QueryWrapper<QxLogon>();
+		queryWrapper.eq("user_id", getRequestUserId());
+		QxLogon entity = qxLogonService.getOne(queryWrapper);
+		if (entity == null) {
+			entity = new QxLogon();
+			entity.setUserId(getRequestUserId());
+		}
+		entity.setLogonTime(new Date());
+		qxLogonService.saveOrUpdate(entity);
+		log.info("/api/user/logon, userId=" + getRequestUserId());
 		return ResultGenerator.genSuccessResult();
 	}
 }

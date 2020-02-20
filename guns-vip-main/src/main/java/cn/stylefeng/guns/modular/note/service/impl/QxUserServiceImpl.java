@@ -1,7 +1,9 @@
 package cn.stylefeng.guns.modular.note.service.impl;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -16,8 +18,10 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.config.ConfigEntity;
 import cn.stylefeng.guns.core.CommonUtils;
+import cn.stylefeng.guns.core.constant.ProjectConstants.SMS_CODE;
 import cn.stylefeng.guns.core.constant.ProjectConstants.SOCIAL_TYPE;
 import cn.stylefeng.guns.core.exception.ServiceException;
+import cn.stylefeng.guns.core.util.NoticeHelper;
 import cn.stylefeng.guns.modular.note.entity.QxBlack;
 import cn.stylefeng.guns.modular.note.entity.QxReport;
 import cn.stylefeng.guns.modular.note.entity.QxUser;
@@ -28,6 +32,7 @@ import cn.stylefeng.guns.modular.note.mapper.QxUserMapper;
 import cn.stylefeng.guns.modular.note.mapper.QxUserSocialMapper;
 import cn.stylefeng.guns.modular.note.model.params.QxUserParam;
 import cn.stylefeng.guns.modular.note.model.result.QxUserResult;
+import cn.stylefeng.guns.modular.note.pojo.QxNotifyUserPojo;
 import cn.stylefeng.guns.modular.note.service.QxUserService;
 import cn.stylefeng.roses.core.util.ToolUtil;
 
@@ -53,6 +58,9 @@ public class QxUserServiceImpl extends ServiceImpl<QxUserMapper, QxUser> impleme
 	
 	@Resource
 	private QxBlackMapper qxBlackMapper;
+	
+	@Resource
+	private NoticeHelper noticeHelper;
 	
 	@Override
 	public void add(QxUserParam param) {
@@ -236,5 +244,15 @@ public class QxUserServiceImpl extends ServiceImpl<QxUserMapper, QxUser> impleme
 			throw new ServiceException("未屏蔽，无需取消");
 		}
 		qxBlackMapper.delete(queryWrapper);
+	}
+
+	@Override
+	public void notifyUnactiveUsers() {
+		List<QxNotifyUserPojo> notifyUsers = this.baseMapper.getNotifyUsers(configEntity.getUnactiveDays());
+		Map<String, String> pairs = new HashMap<>();
+		Map<String, String> extras = new HashMap<>();
+//		for (QxUser user : notifyUsers) {
+//			noticeHelper.push(user.getMobile(), SMS_CODE.NOTIFY_UNACTIVE_USERS, pairs, extras);
+//		}
 	}
 }

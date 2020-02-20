@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import cn.stylefeng.guns.modular.note.entity.QxUser;
 import cn.stylefeng.guns.modular.note.model.params.QxUserParam;
 import cn.stylefeng.guns.modular.note.model.result.QxUserResult;
+import cn.stylefeng.guns.modular.note.pojo.QxNotifyUserPojo;
 
 /**
  * <p>
@@ -98,4 +99,13 @@ public interface QxUserMapper extends BaseMapper<QxUser> {
     @Select("select sum(balance) as balance from qx_user")
     @ResultType(Integer.class)
 	Integer getTotalBalance();
+    
+    /**
+     * 获取不活跃用户，发送提醒短信
+     * @param days
+     * @return
+     */
+    @Select("SELECT a.*, b.id as logonId FROM qx_user a INNER JOIN qx_logon b ON a.id = b.user_id AND (ISNULL(b.last_notify_time) OR DATEDIFF( CURRENT_DATE, b.logon_time ) > #{days})")
+    @ResultType(QxNotifyUserPojo.class)
+    List<QxNotifyUserPojo> getNotifyUsers(@Param("days") Integer days);
 }
