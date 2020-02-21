@@ -77,6 +77,15 @@ public class QxUserController extends BaseController {
         model.addAttribute("userId", userId);
     	return PREFIX + "/qxUser_charge.html";
     }
+    
+    /**
+     * 充值记录界面
+     */
+    @RequestMapping("/chargeRecord")
+    public String chargeRecord(@RequestParam String mobile, Model model) {
+    	model.addAttribute("mobile", mobile);
+    	return PREFIX + "/qxUser_chargeRecord.html";
+    }
 
     /**
      * 新增接口

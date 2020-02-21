@@ -22,12 +22,13 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             {field: 'id', hide: true, title: '标识'},
             {field: 'nickname', sort: false, title: '昵称'},
             {field: 'mobile', sort: false, title: '手机'},
-            {field: 'sex', sort: true, title: '性别', templet: function(d){
+            {field: 'sex', sort: true, title: '性别', width: 100, templet: function(d){
             	return d.sex == 0 ? '男' : '女';
             }},
-            {field: 'score', sort: true, title: '信用分'},
+            {field: 'score', sort: true, width: 100, title: '信用分'},
+            {field: 'balance', sort: true, width: 150, title: '金币'},
             {field: 'createdTime', sort: true, title: '创建时间'},
-            {field: 'status', sort: true, title: '状态', templet: '#statusTpl'},
+            {align: 'center', field: 'status', sort: true, title: '状态', width: 100, templet: '#statusTpl'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };
@@ -120,6 +121,14 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             tableId: QxUser.tableId
         });
     }
+    
+    QxUser.chargeRecord = function(data) {
+    	func.open({
+    		title: '充值记录',
+    		content: Feng.ctxPath + '/qxUser/chargeRecord?mobile=' + data.mobile,
+    		tableId: QxUser.tableId
+    	});
+    }
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + QxUser.tableId,
@@ -156,6 +165,8 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             QxUser.onDeleteItem(data);
         } else if (layEvent === 'chargeUser') {
         	QxUser.chargeUser(data);
+        } else if (layEvent === 'chargeRecord') {
+        	QxUser.chargeRecord(data);
         }
     });
     
