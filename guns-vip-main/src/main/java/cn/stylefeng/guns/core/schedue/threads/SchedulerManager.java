@@ -26,10 +26,17 @@ public class SchedulerManager implements SchedulingConfigurer, Runnable{
 	
 	@Override
 	public void run() {
+		// 关闭未配对订单
 		try {
 			qxInviteService.closeWaitInvite();
 		} catch (Exception e) {
 			log.error("定时任务（未配对拼单关闭）", e);
+		}
+		// 关闭未开始订单
+		try {
+			qxInviteService.closeUnstartInvite();
+		} catch (Exception e) {
+			log.error("定时任务（未开始订单关闭）", e);
 		}
 	}
 }

@@ -63,6 +63,9 @@ public class ConfigEntity {
 	private int maxInvite;
 	// 多少天不活跃
 	private int unactiveDays;
+	// 违约金比例
+	private double punishmentRate;
+	
 	// 短信
 	private String smsDomain;
 	private String smsSignName;

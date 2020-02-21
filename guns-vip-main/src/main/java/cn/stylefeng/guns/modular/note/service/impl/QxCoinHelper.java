@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+import cn.stylefeng.guns.config.ConfigEntity;
 import cn.stylefeng.guns.core.CommonUtils;
 import cn.stylefeng.guns.core.constant.ProjectConstants.COST_RATE_TYPE;
 import cn.stylefeng.guns.core.exception.ServiceException;
@@ -22,6 +23,9 @@ import cn.stylefeng.guns.modular.note.mapper.QxUserMapper;
 @Component
 public class QxCoinHelper {
 
+	@Resource
+	private ConfigEntity configEntity;
+	
 	@Resource
 	private QxGiftMapper qxGiftMapper;
 
@@ -65,6 +69,33 @@ public class QxCoinHelper {
 		payResult.setPayerId(payerId);
 		payResult.setPayeeId(payeeId);
 		payResult.setPrice(giftPrice);
+		return payResult;
+	}
+	
+	/**
+	 * 支付违约金
+	 * @param payerId
+	 * @param payeeId
+	 * @param coin
+	 * @return
+	 */
+	public QxPayResult payPunishCoin(Long payerId, Long payeeId, Integer coin) {
+		QxUser payUser = qxUserMapper.selectById(payerId);
+		QxUser payeeUser = qxUserMapper.selectById(payeeId);
+		if (payUser.getFreeze() < coin) {
+			throw new ServiceException("冻结金币余额不足");
+		}
+		// 金币转账到对方账户
+		payUser.setFreeze(payUser.getFreeze() - coin);
+		payeeUser.setBalance(payeeUser.getBalance() + coin);
+		qxUserMapper.updateById(payUser);
+		qxUserMapper.updateById(payeeUser);
+
+		QxPayResult payResult = new QxPayResult();
+		payResult.setSn(CommonUtils.getSerialNumber());
+		payResult.setPayerId(payerId);
+		payResult.setPayeeId(payeeId);
+		payResult.setPrice(coin);
 		return payResult;
 	}
 
@@ -147,5 +178,16 @@ public class QxCoinHelper {
 		user.setBalance(user.getBalance() + coinCount);
 		user.setFreeze(user.getFreeze() - coinCount);
 		qxUserMapper.updateById(user);
+	}
+	
+	/**
+	 * 获取违约金金币
+	 * @param giftId
+	 * @return
+	 */
+	public int getPunishCoin(Long giftId) {
+		QxGift gift = qxGiftMapper.selectById(giftId);
+		int punishCoin =  (int)Math.floor(gift.getPrice() * configEntity.getPunishmentRate());
+		return punishCoin;
 	}
 }

@@ -323,4 +323,15 @@ public final class ProjectConstants {
 		String TWEET = "0";
 		String NOTE = "1";
 	}
+	
+	/**
+	 * 违约方
+	 * @author stevenliang
+	 *
+	 */
+	public interface PUNISH_REASON {
+		String INVITER = "1";
+		String INVITEE = "2";
+		String BOTH = "3";
+	}
 }
