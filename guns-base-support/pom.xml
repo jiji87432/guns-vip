@@ -17,6 +17,7 @@
 
     <modules>
         <module>guns-activiti</module>
+        <module>guns-camunda</module>
         <module>guns-base</module>
         <module>guns-base-auth</module>
         <module>guns-base-email</module>
