@@ -30,8 +30,8 @@ log:
 
 camunda.bpm:
   admin-user:
-    id: kermit
-    password: superSecret
-    firstName: Kermit
+    id: admin
+    password: admin
+    firstName: admin
   filter:
     create: All tasks

@@ -42,6 +42,9 @@
         <activiti.version>6.0.0</activiti.version>
         <batik.version>1.7</batik.version>
         <camunda.spring-boot.version>3.4.0</camunda.spring-boot.version>
+        <camunda-swagger.version>7.8.0</camunda-swagger.version>
+        <camunda-spin.version>1.8.0</camunda-spin.version>
+        <camunda-commons-logging.version>1.9.0</camunda-commons-logging.version>
     </properties>
 
     <dependencyManagement>
@@ -304,21 +307,31 @@
                 <version>3.1</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpcore</artifactId>
-                <!-- <version>4.3.1</version> -->
+                <groupId>org.camunda.bpm.springboot</groupId>
+                <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+                <version>${camunda.spring-boot.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <!-- <version>4.3.1</version> -->
-            </dependency>
-
             <dependency>
                 <groupId>org.camunda.bpm.springboot</groupId>
                 <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
                 <version>${camunda.spring-boot.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.camunda.bpm.extension.swagger</groupId>
+                <artifactId>camunda-bpm-swagger-json</artifactId>
+                <version>${camunda-swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.camunda.spin</groupId>
+                <artifactId>camunda-spin-dataformat-all</artifactId>
+                <version>${camunda-spin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.camunda.commons</groupId>
+                <artifactId>camunda-commons-logging</artifactId>
+                <version>${camunda-commons-logging.version}</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>

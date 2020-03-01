@@ -17,11 +17,13 @@ package cn.stylefeng.guns;
 
 import cn.stylefeng.roses.core.config.MybatisDataSourceAutoConfiguration;
 import cn.stylefeng.roses.core.config.WebAutoConfiguration;
+import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * SpringBoot方式启动类
@@ -29,6 +31,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
  * @author stylefeng
  * @Date 2017/5/21 12:06
  */
+@EnableProcessApplication
+@ComponentScan({"cn.stylefeng.guns", "org.camunda.bpm"})
 @SpringBootApplication(exclude = {WebAutoConfiguration.class, MybatisDataSourceAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class GunsCamundaApplication {
 
