@@ -5,19 +5,19 @@
     <endEvent id="end" name="结束"></endEvent>
     <userTask id="QJ1" name="请假提交" activiti:assignee="#{USERNAME}">
       <extensionElements>
-        <activiti:taskListener event="create" class="cn.stylefeng.guns.sys.modular.act.listener.ManagerTaskHandler"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.stylefeng.guns.modular.act.listener.ManagerTaskHandler"></activiti:taskListener>
         <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
     <userTask id="QJ2" name="经理审批" activiti:assignee="1">
       <extensionElements>
-        <activiti:taskListener event="create" class="cn.stylefeng.guns.sys.modular.act.listener.ManagerTaskHandler"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.stylefeng.guns.modular.act.listener.ManagerTaskHandler"></activiti:taskListener>
         <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
     <userTask id="QJ3" name="总经理审批" activiti:assignee="5">
       <extensionElements>
-        <activiti:taskListener event="create" class="cn.stylefeng.guns.sys.modular.act.listener.ManagerTaskHandler"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.stylefeng.guns.modular.act.listener.ManagerTaskHandler"></activiti:taskListener>
         <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
