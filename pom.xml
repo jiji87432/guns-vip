@@ -44,7 +44,9 @@
         <camunda.spring-boot.version>3.4.0</camunda.spring-boot.version>
         <camunda-swagger.version>7.8.0</camunda-swagger.version>
         <camunda-spin.version>1.8.0</camunda-spin.version>
+        <swagger-ui.version>3.25.0</swagger-ui.version>
         <camunda-commons-logging.version>1.9.0</camunda-commons-logging.version>
+        <jaxb-impl.version>2.2.3</jaxb-impl.version>
     </properties>
 
     <dependencyManagement>
@@ -322,6 +324,11 @@
                 <version>${camunda-swagger.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>swagger-ui</artifactId>
+                <version>${swagger-ui.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.camunda.spin</groupId>
                 <artifactId>camunda-spin-dataformat-all</artifactId>
                 <version>${camunda-spin.version}</version>
@@ -331,7 +338,11 @@
                 <artifactId>camunda-commons-logging</artifactId>
                 <version>${camunda-commons-logging.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${jaxb-impl.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
