@@ -118,6 +118,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     // 图片子u按
                     .antMatchers("/resource/**")
                     .permitAll()
+                    // 登录接口放开过滤
+                    .antMatchers("/app/**")
+                    .permitAll()
                     .anyRequest()
                     .authenticated();
 
